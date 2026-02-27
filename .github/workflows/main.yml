@@ -1,27 +1,33 @@
-name: Global King System Active
-on:
-  workflow_dispatch:
+import sys
+from PyQt6.QtCore import QUrl, QTimer
+from PyQt6.QtWidgets import QApplication
+from PyQt6.QtWebEngineCore import QWebEngineProfile
+from PyQt6.QtWebEngineWidgets import QWebEngineView
 
-jobs:
-  run-browser:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout Code
-        uses: actions/checkout@v4
+def run_global_king():
+    app = QApplication(sys.argv)
+    browser = QWebEngineView()
+    
+    # Aapka Facebook Video Link
+    video_url = "https://www.facebook.com/share/v/16zN1Fo3qf/"
+    
+    # USA Identity Setup
+    profile = QWebEngineProfile.defaultProfile()
+    profile.setHttpUserAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36")
+    
+    print(f"🚀 Signal Active: Sending to Rahim Yar Khan via USA Server...")
+    browser.load(QUrl(video_url))
+    
+    # Screenshot Function (Result Dekhne Ke Liye)
+    def take_screenshot():
+        browser.grab().save("result_signal.png")
+        print("📸 Screenshot Saved: Check your repository for 'result_signal.png'")
 
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.10'
+    # 30 second baad screenshot lega
+    QTimer.singleShot(30000, take_screenshot)
+    
+    browser.show()
+    sys.exit(app.exec())
 
-      - name: Install Everything
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y xvfb libegl1 libxcb-cursor0 libxkbcommon-x11-0 libxcb-icccm4 libxcb-image0 libxcb-keysyms1 libxcb-randr0 libxcb-render-util0 libxcb-shape0 libxcb-xfixes0 libxcb-xinerama0 libxcb-sync1
-          pip install PyQt6 PyQt6-WebEngine
-
-      - name: Run Browser
-        run: |
-          Xvfb :99 -screen 0 1280x1024x24 &
-          export DISPLAY=:99
-          python main.py
+if __name__ == "__main__":
+    run_global_king()
